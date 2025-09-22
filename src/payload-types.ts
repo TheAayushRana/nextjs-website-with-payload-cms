@@ -193,7 +193,7 @@ export interface Page {
   /**
    * Add flexible content blocks to build your page
    */
-  blocks?: (HeroBlock | TestimonialsBlock | FeaturesBlock | CTASectionBlock | ContactFormBxlock)[] | null;
+  blocks?: (HeroBlock | TestimonialsBlock | FeaturesBlock | CTASectionBlock | ContactFormBlock)[] | null;
   meta?: {
     /**
      * SEO title for search engines
@@ -335,9 +335,9 @@ export interface CTASectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactFormBxlock".
+ * via the `definition` "ContactFormBlock".
  */
-export interface ContactFormBxlock {
+export interface ContactFormBlock {
   /**
    * Form section title (optional)
    */
@@ -513,7 +513,7 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         features?: T | FeaturesBlockSelect<T>;
         'cta-section'?: T | CTASectionBlockSelect<T>;
-        'contact-form'?: T | ContactFormBxlockSelect<T>;
+        'contact-form'?: T | ContactFormBlockSelect<T>;
       };
   meta?:
     | T
@@ -606,9 +606,9 @@ export interface CTASectionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContactFormBxlock_select".
+ * via the `definition` "ContactFormBlock_select".
  */
-export interface ContactFormBxlockSelect<T extends boolean = true> {
+export interface ContactFormBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   submitButtonText?: T;
