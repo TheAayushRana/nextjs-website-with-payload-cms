@@ -695,7 +695,7 @@ export interface Header {
   /**
    * Primary action button in the header
    */
-  ctaButton?: {
+  ctaButton: {
     /**
      * Show/hide the CTA button
      */
@@ -703,11 +703,11 @@ export interface Header {
     /**
      * Button text
      */
-    label?: string | null;
+    label: string;
     /**
      * Button destination URL
      */
-    url?: string | null;
+    url: string;
     /**
      * Button style variant
      */

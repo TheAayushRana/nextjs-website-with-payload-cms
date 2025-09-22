@@ -5,7 +5,7 @@ export const Header: GlobalConfig = {
   label: 'Header',
   access: {
     read: () => true,
-    update: ({ req: { user } }) => {
+    update: ({ req: { user } }: { req: { user: { collection: string } } }) => {
       return user?.collection === 'users'
     },
   },
@@ -78,7 +78,6 @@ export const Header: GlobalConfig = {
           localized: true,
           required: true,
           admin: {
-            condition: (data: unknown, siblingData: { enabled: boolean }) => siblingData.enabled,
             description: 'Button text',
           },
         },
@@ -87,7 +86,6 @@ export const Header: GlobalConfig = {
           type: 'text',
           required: true,
           admin: {
-            condition: (data: unknown, siblingData: { enabled: boolean }) => siblingData.enabled,
             description: 'Button destination URL',
           },
         },
@@ -110,7 +108,6 @@ export const Header: GlobalConfig = {
           ],
           defaultValue: 'default',
           admin: {
-            condition: (data: unknown, siblingData: { enabled: boolean }) => siblingData.enabled,
             description: 'Button style variant',
           },
         },
