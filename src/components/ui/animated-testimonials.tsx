@@ -15,6 +15,7 @@ export const AnimatedTestimonials = ({
   autoplay?: boolean;
 }) => {
   const [active, setActive] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   const handleNext = useCallback(() => {
     if (!testimonials) return;
@@ -31,6 +32,10 @@ export const AnimatedTestimonials = ({
   };
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
     if (autoplay && testimonials && testimonials.length > 0) {
       const interval = setInterval(handleNext, 5000);
       return () => clearInterval(interval);
@@ -41,8 +46,12 @@ export const AnimatedTestimonials = ({
     return null;
   }
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
+  // Use deterministic rotation based on index to prevent hydration mismatches
+  const getRotation = (index: number, isActive: boolean) => {
+    if (!isClient) return 0; // No rotation during SSR
+    if (isActive) return 0;
+    // Use index-based deterministic rotation to ensure consistent SSR/client values
+    return ((index * 7) % 21) - 10; // Creates variety: -10, -3, 4, -3, 4, etc.
   };
   return (
     <div className="mx-auto max-w-sm px-4 py-10 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
@@ -62,13 +71,13 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: getRotation(index, false),
                   }}
                   animate={{
                     opacity: isActive(index) ? 1 : 0.7,
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: getRotation(index, isActive(index)),
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -78,7 +87,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: getRotation(index, false),
                   }}
                   transition={{
                     duration: 0.4,
