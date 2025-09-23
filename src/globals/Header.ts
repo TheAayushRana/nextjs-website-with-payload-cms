@@ -5,7 +5,7 @@ export const Header: GlobalConfig = {
   label: 'Header',
   access: {
     read: () => true,
-    update: ({ req: { user } }: { req: { user: { collection: string } } }) => {
+    update: ({ req: { user } }: any) => {
       return user?.collection === 'users'
     },
   },

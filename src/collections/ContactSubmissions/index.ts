@@ -9,13 +9,13 @@ export const ContactSubmissions: CollectionConfig = {
   },
   access: {
     create: () => true,
-    read: ({ req: { user } }) => {
+    read: ({ req: { user } }: any) => {
       return user?.collection === 'users'
     },
-    update: ({ req: { user } }) => {
+    update: ({ req: { user } }: any) => {
       return user?.collection === 'users'
     },
-    delete: ({ req: { user } }) => {
+    delete: ({ req: { user } }: any) => {
       return user?.collection === 'users'
     },
   },
@@ -63,7 +63,7 @@ export const ContactSubmissions: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ siblingData, value }) => {
+          ({ siblingData, value }: any) => {
             // Auto-set submission time if not already set
             if (!value && !siblingData.submittedAt) {
               return new Date()
